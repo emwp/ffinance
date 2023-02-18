@@ -1,0 +1,39 @@
+scalar Date
+
+type Transaction {
+  id: ID
+  currency: String
+  date: Date
+  amount: Float
+  reference: String
+  account: String
+  bankId: ID
+  categories: [Category]
+  bank: Bank
+}
+
+type Bank {
+  id: ID
+  name: String
+}
+
+type Category {
+  id: ID
+  name: String
+}
+
+type Query {
+  transactions(
+    search: String
+    reference: String
+    account: String
+    category: String
+    currency: String
+    amount: Float
+    bank: String
+    to: Date
+    from: Date
+  ): [Transaction]
+  categories: [Category]
+  banks: [Bank]
+}

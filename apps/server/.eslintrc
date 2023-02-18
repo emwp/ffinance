@@ -1,0 +1,30 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": ["plugin:@typescript-eslint/recommended", "plugin:import/typescript"],
+  "plugins": ["@typescript-eslint", "import"],
+  "parserOptions": { "ecmaVersion": 2018, "sourceType": "module" },
+  "rules": {
+    "quotes": ["error", "single"],
+    "semi": "error",
+    "no-undef": "off",
+    "no-console": "warn",
+    "no-underscore-dangle": "off"
+  },
+  "ignorePatterns": ["prisma"],
+  // Import / Export rules
+  "import/default": "error",
+  "import/first": "error",
+  "import/exports-last": "error",
+  "import/no-anonymous-default-export": "error",
+  "import/no-named-as-default": "error",
+  "import/order": [
+    "warn",
+    {
+      "groups": ["builtin", "external", "internal", ["parent", "sibling"]],
+      "alphabetize": {
+        "order": "asc",
+        "caseInsensitive": true
+      }
+    }
+  ]
+}
