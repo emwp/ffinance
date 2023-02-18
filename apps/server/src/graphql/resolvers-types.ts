@@ -56,7 +56,8 @@ export type Transaction = {
   amount?: Maybe<Scalars['Float']>;
   bank?: Maybe<Bank>;
   bankId?: Maybe<Scalars['ID']>;
-  categories?: Maybe<Array<Maybe<Category>>>;
+  categories?: Maybe<Category>;
+  categoryId?: Maybe<Scalars['ID']>;
   currency?: Maybe<Scalars['String']>;
   date?: Maybe<Scalars['Date']>;
   id?: Maybe<Scalars['ID']>;
@@ -184,7 +185,8 @@ export type TransactionResolvers<ContextType = any, ParentType extends Resolvers
   amount?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   bank?: Resolver<Maybe<ResolversTypes['Bank']>, ParentType, ContextType>;
   bankId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
-  categories?: Resolver<Maybe<Array<Maybe<ResolversTypes['Category']>>>, ParentType, ContextType>;
+  categories?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType>;
+  categoryId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   currency?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;

@@ -4,7 +4,7 @@ import prisma from './client';
 const banks: Bank[] = [
   {
     id: 1,
-    name: "Satander",
+    name: "Santander",
   },
   {
     id: 2,

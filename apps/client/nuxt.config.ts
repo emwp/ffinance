@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   apollo: {
     clients: {
       default: {
-        httpEndpoint: 'https://countries.trevorblades.com/graphql',
+        httpEndpoint: 'http://localhost:5000/',
       },
     },
   },

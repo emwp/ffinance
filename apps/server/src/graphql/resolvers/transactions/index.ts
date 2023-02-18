@@ -20,7 +20,7 @@ const getTransactions = async (args: z.infer<typeof QueryInputSchema>) => {
   const searchORconditions: { [key: string]: unknown }[] = [
     { reference: { contains: search, mode: 'insensitive' } },
     { account: { contains: search, mode: 'insensitive' } },
-    { categories: { some: { name: { contains: search, mode: 'insensitive' } } } },
+    { category: { name: { contains: search, mode: 'insensitive' } } },
     { account: { contains: search, mode: 'insensitive' } },
     { bank: { name: { contains: search, mode: 'insensitive' } } },
     { currency: { equals: search, mode: 'insensitive' } },
@@ -39,8 +39,8 @@ const getTransactions = async (args: z.infer<typeof QueryInputSchema>) => {
     where: {
       OR: searchORconditions,
       AND: [
-        { account: { mode: 'insensitive', contains: account } },
-        { bank: { name: { contains: bank } } },
+        { account: { contains: account, mode: 'insensitive' } },
+        { bank: { name: { contains: bank, mode: 'insensitive' } } },
         { date: { gte: new Date(from ?? START_DATE_STRING), lte: to ? new Date(to) : new Date() } },
       ],
     },

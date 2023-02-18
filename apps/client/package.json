@@ -10,6 +10,7 @@
     "prepare": "nuxt prepare",
     "postinstall": "nuxt prepare",
     "lint": "eslint",
+    "codegen:watch": "graphql-codegen --watch",
     "gen:graphql": "graphql-codegen --config codegen.ts",
     "lint:fix": "eslint --fix",
     "test": "vitest"

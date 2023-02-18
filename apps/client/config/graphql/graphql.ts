@@ -16,128 +16,73 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  _Any: any;
+  Date: any;
 };
 
-export type Continent = {
-  __typename?: 'Continent';
-  code: Scalars['ID'];
-  countries: Array<Country>;
-  name: Scalars['String'];
-};
-
-export type ContinentFilterInput = {
-  code?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type Country = {
-  __typename?: 'Country';
-  capital?: Maybe<Scalars['String']>;
-  code: Scalars['ID'];
-  continent: Continent;
-  currency?: Maybe<Scalars['String']>;
-  emoji: Scalars['String'];
-  emojiU: Scalars['String'];
-  languages: Array<Language>;
-  name: Scalars['String'];
-  native: Scalars['String'];
-  phone: Scalars['String'];
-  states: Array<State>;
-};
-
-export type CountryFilterInput = {
-  code?: InputMaybe<StringQueryOperatorInput>;
-  continent?: InputMaybe<StringQueryOperatorInput>;
-  currency?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type Language = {
-  __typename?: 'Language';
-  code: Scalars['ID'];
+export type Bank = {
+  __typename?: 'Bank';
+  id?: Maybe<Scalars['ID']>;
   name?: Maybe<Scalars['String']>;
-  native?: Maybe<Scalars['String']>;
-  rtl: Scalars['Boolean'];
 };
 
-export type LanguageFilterInput = {
-  code?: InputMaybe<StringQueryOperatorInput>;
+export type Category = {
+  __typename?: 'Category';
+  id?: Maybe<Scalars['ID']>;
+  name?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
   __typename?: 'Query';
-  _entities: Array<Maybe<_Entity>>;
-  _service: _Service;
-  continent?: Maybe<Continent>;
-  continents: Array<Continent>;
-  countries: Array<Country>;
-  country?: Maybe<Country>;
-  language?: Maybe<Language>;
-  languages: Array<Language>;
+  banks?: Maybe<Array<Maybe<Bank>>>;
+  categories?: Maybe<Array<Maybe<Category>>>;
+  transactions?: Maybe<Array<Maybe<Transaction>>>;
 };
 
 
-export type Query_EntitiesArgs = {
-  representations: Array<Scalars['_Any']>;
+export type QueryTransactionsArgs = {
+  account?: InputMaybe<Scalars['String']>;
+  amount?: InputMaybe<Scalars['Float']>;
+  bank?: InputMaybe<Scalars['String']>;
+  category?: InputMaybe<Scalars['String']>;
+  currency?: InputMaybe<Scalars['String']>;
+  from?: InputMaybe<Scalars['Date']>;
+  reference?: InputMaybe<Scalars['String']>;
+  search?: InputMaybe<Scalars['String']>;
+  to?: InputMaybe<Scalars['Date']>;
 };
 
-
-export type QueryContinentArgs = {
-  code: Scalars['ID'];
+export type Transaction = {
+  __typename?: 'Transaction';
+  account?: Maybe<Scalars['String']>;
+  amount?: Maybe<Scalars['Float']>;
+  bank?: Maybe<Bank>;
+  bankId?: Maybe<Scalars['ID']>;
+  categories?: Maybe<Category>;
+  categoryId?: Maybe<Scalars['ID']>;
+  currency?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['Date']>;
+  id?: Maybe<Scalars['ID']>;
+  reference?: Maybe<Scalars['String']>;
 };
 
-
-export type QueryContinentsArgs = {
-  filter?: InputMaybe<ContinentFilterInput>;
-};
+export type BanksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type QueryCountriesArgs = {
-  filter?: InputMaybe<CountryFilterInput>;
-};
+export type BanksQuery = { __typename?: 'Query', banks?: Array<{ __typename?: 'Bank', id?: string | null, name?: string | null } | null> | null };
+
+export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type QueryCountryArgs = {
-  code: Scalars['ID'];
-};
+export type CategoriesQuery = { __typename?: 'Query', categories?: Array<{ __typename?: 'Category', id?: string | null, name?: string | null } | null> | null };
+
+export type TransactionsQueryVariables = Exact<{
+  search?: InputMaybe<Scalars['String']>;
+}>;
 
 
-export type QueryLanguageArgs = {
-  code: Scalars['ID'];
-};
+export type TransactionsQuery = { __typename?: 'Query', transactions?: Array<{ __typename?: 'Transaction', id?: string | null, reference?: string | null, account?: string | null, currency?: string | null, date?: any | null, bank?: { __typename?: 'Bank', id?: string | null, name?: string | null } | null, categories?: { __typename?: 'Category', id?: string | null, name?: string | null } | null } | null> | null };
 
 
-export type QueryLanguagesArgs = {
-  filter?: InputMaybe<LanguageFilterInput>;
-};
-
-export type State = {
-  __typename?: 'State';
-  code?: Maybe<Scalars['String']>;
-  country: Country;
-  name: Scalars['String'];
-};
-
-export type StringQueryOperatorInput = {
-  eq?: InputMaybe<Scalars['String']>;
-  glob?: InputMaybe<Scalars['String']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  ne?: InputMaybe<Scalars['String']>;
-  nin?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  regex?: InputMaybe<Scalars['String']>;
-};
-
-export type _Entity = Continent | Country | Language;
-
-export type _Service = {
-  __typename?: '_Service';
-  /** The sdl representing the federated service capabilities. Includes federation directives, removes federation types, and includes rest of full schema after schema directives have been applied */
-  sdl?: Maybe<Scalars['String']>;
-};
-
-export type GetCountriesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetCountriesQuery = { __typename?: 'Query', countries: Array<{ __typename?: 'Country', name: string, code: string }> };
-
-
-export const GetCountriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getCountries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}}]}}]} as unknown as DocumentNode<GetCountriesQuery, GetCountriesQueryVariables>;
+export const BanksDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Banks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"banks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<BanksQuery, BanksQueryVariables>;
+export const CategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<CategoriesQuery, CategoriesQueryVariables>;
+export const TransactionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Transactions"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"search"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"transactions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"search"},"value":{"kind":"Variable","name":{"kind":"Name","value":"search"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"reference"}},{"kind":"Field","name":{"kind":"Name","value":"account"}},{"kind":"Field","name":{"kind":"Name","value":"bank"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"currency"}},{"kind":"Field","name":{"kind":"Name","value":"date"}}]}}]}}]} as unknown as DocumentNode<TransactionsQuery, TransactionsQueryVariables>;
