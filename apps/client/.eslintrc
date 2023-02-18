@@ -1,0 +1,20 @@
+{
+  "root": true,
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser"
+  },
+  "env": {
+    "node": true,
+    "browser": true
+  },
+  "extends": ["eslint:recommended", "plugin:vue/vue3-recommended", "@vue/typescript/recommended"],
+  "rules": {
+    "quotes": ["error", "single"],
+    "semi": "error",
+    "no-undef": "off",
+    "no-console": "warn",
+    "vue/multi-word-component-names": "off",
+    "vue/component-name-in-template-casing": ["error", "PascalCase"]
+  }
+}

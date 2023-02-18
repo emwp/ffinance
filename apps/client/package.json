@@ -1,0 +1,54 @@
+{
+  "name": "@ffinance/client",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "PORT=3000 nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "prepare": "nuxt prepare",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint",
+    "gen:graphql": "graphql-codegen --config codegen.ts",
+    "lint:fix": "eslint --fix",
+    "test": "vitest"
+  },
+  "prettier": {
+    "semi": true,
+    "trailingComma": "all",
+    "singleQuote": true,
+    "printWidth": 120,
+    "tabWidth": 2,
+    "bracketSpacing": true
+  },
+  "devDependencies": {
+    "@graphql-codegen/add": "4.0.0",
+    "@graphql-codegen/cli": "^3.0.0",
+    "@graphql-codegen/client-preset": "^2.0.0",
+    "@nuxt/test-utils": "3.2.2",
+    "@nuxtjs/tailwindcss": "6.4.0",
+    "@testing-library/dom": "^9.0.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/vue": "^6.6.1",
+    "@typescript-eslint/eslint-plugin": "5.44.0",
+    "@typescript-eslint/parser": "5.44.0",
+    "@vue/eslint-config-typescript": "11.0.2",
+    "eslint": "8.28.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-vue": "9.7.0",
+    "happy-dom": "^8.4.4",
+    "nuxt": "3.2.0",
+    "nuxt-vitest": "^0.6.6",
+    "prettier": "2.8.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5",
+    "vite-plugin-eslint": "1.8.1",
+    "vitest": "^0.28.5",
+    "vue-eslint-parser": "9.1.0"
+  },
+  "dependencies": {
+    "@nuxtjs/apollo": "^5.0.0-alpha.5",
+    "graphql": "^16.6.0"
+  }
+}
