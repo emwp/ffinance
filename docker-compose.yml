@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+  client:
+    container_name: ffinance_client
+    build:
+      context: .
+      dockerfile: ./apps/client/Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - app_network
+
+  server:
+    container_name: ffinance_server
+    build:
+      context: .
+      dockerfile: ./apps/server/Dockerfile
+    restart: always
+    ports:
+      - 5000:5000
+    networks:
+      - app_network
+
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=ffinance
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  
+volumes:
+  db_data:
+
+networks:
+  app_network:
+    external: true
