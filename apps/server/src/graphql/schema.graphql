@@ -2,25 +2,26 @@ scalar Date
 
 type Transaction {
   id: ID!
-  currency: String!
-  date: Date!
-  amount: Float!
-  reference: String!
-  account: String!
-  categories: Category
+  reference: String
+  currency: String
+  amount: Float
+  date: Date
+  category: Category
   categoryId: ID
-  bank: Bank
-  bankId: ID
+  account: Account
+  accountId: ID
 }
 
-type Bank {
+type Account {
   id: ID!
-  name: String!
+  name: String
+  bank: String
 }
 
 type Category {
   id: ID!
-  name: String!
+  name: String
+  color: String
 }
 
 type Query {
@@ -31,7 +32,8 @@ type Query {
     account: String
     from: Date
     to: Date
+    first: Int
   ): [Transaction]
   categories: [Category]
-  banks: [Bank]
+  accounts: [Account]
 }

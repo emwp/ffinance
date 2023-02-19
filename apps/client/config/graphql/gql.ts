@@ -13,9 +13,9 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Therefore it is highly recommended to use the babel-plugin for production.
  */
 const documents = {
-    "\n      query Banks {\n        banks {\n          id\n          name\n        }\n      }\n    ": types.BanksDocument,
-    "\n      query Categories {\n        categories {\n          id\n          name\n        }\n      }\n    ": types.CategoriesDocument,
-    "\n      query Transactions($search: String, $category: String, $bank: String, $account: String, $from: Date, $to: Date) {\n        transactions(search: $search, category: $category, bank: $bank, account: $account, from: $from, to: $to) {\n          id\n          reference\n          account\n          amount\n          currency\n          bank {\n            name\n          }\n          categories {\n            name\n          }\n        }\n      }\n    ": types.TransactionsDocument,
+    "\n      query Accounts {\n        accounts {\n          id\n          name\n          bank\n        }\n      }\n    ": types.AccountsDocument,
+    "\n      query Categories {\n        categories {\n          id\n          name\n          color\n        }\n      }\n    ": types.CategoriesDocument,
+    "\n      query Transactions(\n        $bank: String\n        $account: String\n        $first: Int\n        $search: String\n        $category: String\n        $from: Date\n        $to: Date\n      ) {\n        transactions(\n          bank: $bank\n          account: $account\n          first: $first\n          search: $search\n          category: $category\n          from: $from\n          to: $to\n        ) {\n          id\n          reference\n          amount\n          currency\n          date\n          account {\n            id\n            name\n            bank\n          }\n          category {\n            id\n            name\n            color\n          }\n        }\n      }\n    ": types.TransactionsDocument,
 };
 
 /**
@@ -35,15 +35,15 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n      query Banks {\n        banks {\n          id\n          name\n        }\n      }\n    "): (typeof documents)["\n      query Banks {\n        banks {\n          id\n          name\n        }\n      }\n    "];
+export function graphql(source: "\n      query Accounts {\n        accounts {\n          id\n          name\n          bank\n        }\n      }\n    "): (typeof documents)["\n      query Accounts {\n        accounts {\n          id\n          name\n          bank\n        }\n      }\n    "];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n      query Categories {\n        categories {\n          id\n          name\n        }\n      }\n    "): (typeof documents)["\n      query Categories {\n        categories {\n          id\n          name\n        }\n      }\n    "];
+export function graphql(source: "\n      query Categories {\n        categories {\n          id\n          name\n          color\n        }\n      }\n    "): (typeof documents)["\n      query Categories {\n        categories {\n          id\n          name\n          color\n        }\n      }\n    "];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n      query Transactions($search: String, $category: String, $bank: String, $account: String, $from: Date, $to: Date) {\n        transactions(search: $search, category: $category, bank: $bank, account: $account, from: $from, to: $to) {\n          id\n          reference\n          account\n          amount\n          currency\n          bank {\n            name\n          }\n          categories {\n            name\n          }\n        }\n      }\n    "): (typeof documents)["\n      query Transactions($search: String, $category: String, $bank: String, $account: String, $from: Date, $to: Date) {\n        transactions(search: $search, category: $category, bank: $bank, account: $account, from: $from, to: $to) {\n          id\n          reference\n          account\n          amount\n          currency\n          bank {\n            name\n          }\n          categories {\n            name\n          }\n        }\n      }\n    "];
+export function graphql(source: "\n      query Transactions(\n        $bank: String\n        $account: String\n        $first: Int\n        $search: String\n        $category: String\n        $from: Date\n        $to: Date\n      ) {\n        transactions(\n          bank: $bank\n          account: $account\n          first: $first\n          search: $search\n          category: $category\n          from: $from\n          to: $to\n        ) {\n          id\n          reference\n          amount\n          currency\n          date\n          account {\n            id\n            name\n            bank\n          }\n          category {\n            id\n            name\n            color\n          }\n        }\n      }\n    "): (typeof documents)["\n      query Transactions(\n        $bank: String\n        $account: String\n        $first: Int\n        $search: String\n        $category: String\n        $from: Date\n        $to: Date\n      ) {\n        transactions(\n          bank: $bank\n          account: $account\n          first: $first\n          search: $search\n          category: $category\n          from: $from\n          to: $to\n        ) {\n          id\n          reference\n          amount\n          currency\n          date\n          account {\n            id\n            name\n            bank\n          }\n          category {\n            id\n            name\n            color\n          }\n        }\n      }\n    "];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

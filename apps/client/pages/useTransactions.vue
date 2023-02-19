@@ -5,18 +5,38 @@ import { graphql } from '../config/graphql/gql';
 export function useTransactions(args: TransactionsQueryVariables) {
   const { result } = useQuery(
     graphql(/* GraphQL */ `
-      query Transactions($search: String, $category: String, $bank: String, $account: String, $from: Date, $to: Date) {
-        transactions(search: $search, category: $category, bank: $bank, account: $account, from: $from, to: $to) {
+      query Transactions(
+        $bank: String
+        $account: String
+        $first: Int
+        $search: String
+        $category: String
+        $from: Date
+        $to: Date
+      ) {
+        transactions(
+          bank: $bank
+          account: $account
+          first: $first
+          search: $search
+          category: $category
+          from: $from
+          to: $to
+        ) {
           id
           reference
-          account
           amount
           currency
-          bank {
+          date
+          account {
+            id
             name
+            bank
           }
-          categories {
+          category {
+            id
             name
+            color
           }
         }
       }

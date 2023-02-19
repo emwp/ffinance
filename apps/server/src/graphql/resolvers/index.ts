@@ -1,14 +1,14 @@
 import { DateScalar } from 'graphql-date-scalars';
 import { getTransactions } from './transactions';
 import { getCategories } from './categories';
-import { getBanks } from './banks';
+import { getAccounts } from './accounts';
 
 const resolvers = {
   Date: DateScalar,
   Query: {
     transactions: async (_, args) => getTransactions(args),
     categories: async () => getCategories(),
-    banks: async () => getBanks(),
+    accounts: async () => getAccounts(),
   },
 };
 

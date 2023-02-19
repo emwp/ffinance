@@ -18,21 +18,23 @@ export type Scalars = {
   Date: Date;
 };
 
-export type Bank = {
-  __typename?: 'Bank';
+export type Account = {
+  __typename?: 'Account';
+  bank?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
-  name: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
 };
 
 export type Category = {
   __typename?: 'Category';
+  color?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
-  name: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
   __typename?: 'Query';
-  banks?: Maybe<Array<Maybe<Bank>>>;
+  accounts?: Maybe<Array<Maybe<Account>>>;
   categories?: Maybe<Array<Maybe<Category>>>;
   transactions?: Maybe<Array<Maybe<Transaction>>>;
 };
@@ -42,6 +44,7 @@ export type QueryTransactionsArgs = {
   account?: InputMaybe<Scalars['String']>;
   bank?: InputMaybe<Scalars['String']>;
   category?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
   from?: InputMaybe<Scalars['Date']>;
   search?: InputMaybe<Scalars['String']>;
   to?: InputMaybe<Scalars['Date']>;
@@ -49,16 +52,15 @@ export type QueryTransactionsArgs = {
 
 export type Transaction = {
   __typename?: 'Transaction';
-  account: Scalars['String'];
-  amount: Scalars['Float'];
-  bank?: Maybe<Bank>;
-  bankId?: Maybe<Scalars['ID']>;
-  categories?: Maybe<Category>;
+  account?: Maybe<Account>;
+  accountId?: Maybe<Scalars['ID']>;
+  amount?: Maybe<Scalars['Float']>;
+  category?: Maybe<Category>;
   categoryId?: Maybe<Scalars['ID']>;
-  currency: Scalars['String'];
-  date: Scalars['Date'];
+  currency?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['Date']>;
   id: Scalars['ID'];
-  reference: Scalars['String'];
+  reference?: Maybe<Scalars['String']>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -131,12 +133,13 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
-  Bank: ResolverTypeWrapper<Bank>;
+  Account: ResolverTypeWrapper<Account>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Category: ResolverTypeWrapper<Category>;
   Date: ResolverTypeWrapper<Scalars['Date']>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Transaction: ResolverTypeWrapper<Transaction>;
@@ -144,26 +147,29 @@ export type ResolversTypes = ResolversObject<{
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
-  Bank: Bank;
+  Account: Account;
   Boolean: Scalars['Boolean'];
   Category: Category;
   Date: Scalars['Date'];
   Float: Scalars['Float'];
   ID: Scalars['ID'];
+  Int: Scalars['Int'];
   Query: {};
   String: Scalars['String'];
   Transaction: Transaction;
 }>;
 
-export type BankResolvers<ContextType = any, ParentType extends ResolversParentTypes['Bank'] = ResolversParentTypes['Bank']> = ResolversObject<{
+export type AccountResolvers<ContextType = any, ParentType extends ResolversParentTypes['Account'] = ResolversParentTypes['Account']> = ResolversObject<{
+  bank?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type CategoryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']> = ResolversObject<{
+  color?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -172,27 +178,26 @@ export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 }
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  banks?: Resolver<Maybe<Array<Maybe<ResolversTypes['Bank']>>>, ParentType, ContextType>;
+  accounts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Account']>>>, ParentType, ContextType>;
   categories?: Resolver<Maybe<Array<Maybe<ResolversTypes['Category']>>>, ParentType, ContextType>;
   transactions?: Resolver<Maybe<Array<Maybe<ResolversTypes['Transaction']>>>, ParentType, ContextType, Partial<QueryTransactionsArgs>>;
 }>;
 
 export type TransactionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Transaction'] = ResolversParentTypes['Transaction']> = ResolversObject<{
-  account?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  amount?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  bank?: Resolver<Maybe<ResolversTypes['Bank']>, ParentType, ContextType>;
-  bankId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
-  categories?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType>;
+  account?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType>;
+  accountId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  amount?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  category?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType>;
   categoryId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
-  currency?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  date?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  currency?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  reference?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  reference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type Resolvers<ContextType = any> = ResolversObject<{
-  Bank?: BankResolvers<ContextType>;
+  Account?: AccountResolvers<ContextType>;
   Category?: CategoryResolvers<ContextType>;
   Date?: GraphQLScalarType;
   Query?: QueryResolvers<ContextType>;

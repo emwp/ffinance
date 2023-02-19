@@ -8,6 +8,7 @@ export function useCategories() {
         categories {
           id
           name
+          color
         }
       }
     `),

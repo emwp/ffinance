@@ -10,27 +10,28 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Transaction {
-  id         Int      @id @default(autoincrement())
+model transactions {
+  id         String     @id @default(uuid())
   reference  String
-  account    String
   currency   String
-  amount     Int
-  date       DateTime @default(now())
-  category   Category @relation(fields: [categoryId], references: [id])
-  categoryId Int
-  bank       Bank     @relation(fields: [bankId], references: [id])
-  bankId     Int
+  amount     Decimal
+  date       DateTime   @default(now())
+  category   categories @relation(fields: [categoryId], references: [id])
+  categoryId String
+  account    accounts   @relation(fields: [accountId], references: [id])
+  accountId  String
 }
 
-model Category {
-  id           Int           @id @default(autoincrement())
+model categories {
+  id           String         @id @default(uuid())
   name         String
-  transactions Transaction[]
+  color        String
+  transactions transactions[]
 }
 
-model Bank {
-  id           Int           @id @default(autoincrement())
+model accounts {
+  id           String         @id @default(uuid())
   name         String
-  transactions Transaction[]
+  bank         String
+  transactions transactions[]
 }

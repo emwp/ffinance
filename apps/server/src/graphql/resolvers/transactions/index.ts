@@ -8,28 +8,29 @@ const START_DATE_STRING = '1901-01-01';
 const QueryInputSchema = z.object({
   search: z.string().optional(),
   category: z.string().optional(),
-  bank: z.string().optional(),
   account: z.string().optional(),
+  bank: z.string().optional(),
   from: z.date().optional(),
   to: z.date().optional(),
+  first: z.number().optional(),
 });
 
 const getTransactions = async (args: z.infer<typeof QueryInputSchema>) => {
   const {
     account,
     category,
-    bank,
     to,
     from,
+    bank,
     search = '',
+    first = 100,
   } = QueryInputSchema.parse(args) ?? {};
 
   const searchORconditions: { [key: string]: unknown }[] = [
     { reference: { contains: search, mode: 'insensitive' } },
-    { account: { contains: search, mode: 'insensitive' } },
+    { account: { name: { contains: search, mode: 'insensitive' } } },
+    { account: { bank: { contains: search, mode: 'insensitive' } } },
     { category: { name: { contains: search, mode: 'insensitive' } } },
-    { account: { contains: search, mode: 'insensitive' } },
-    { bank: { name: { contains: search, mode: 'insensitive' } } },
     { currency: { equals: search, mode: 'insensitive' } },
   ];
 
@@ -44,12 +45,12 @@ const getTransactions = async (args: z.infer<typeof QueryInputSchema>) => {
     searchORconditions.push({ amount: { equals: amount } });
   }
 
-  return await prisma.transaction.findMany({
+  return await prisma.transactions.findMany({
     where: {
       OR: searchORconditions,
       AND: [
-        { account: { contains: account, mode: 'insensitive' } },
-        { bank: { name: { contains: bank, mode: 'insensitive' } } },
+        { account: { bank: { contains: bank, mode: 'insensitive' } } },
+        { account: { name: { contains: account, mode: 'insensitive' } } },
         { category: { name: { contains: category, mode: 'insensitive' } } },
         {
           date: {
@@ -60,9 +61,10 @@ const getTransactions = async (args: z.infer<typeof QueryInputSchema>) => {
       ],
     },
     include: {
-      category: { select: { name: true, id: true } },
-      bank: { select: { name: true, id: true } },
+      category: { select: { name: true, color: true, id: true } },
+      account: { select: { name: true, bank: true, id: true } },
     },
+    take: first,
   });
 };
 
