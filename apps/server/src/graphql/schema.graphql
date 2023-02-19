@@ -24,6 +24,10 @@ type Category {
   color: String
 }
 
+type Bank {
+  bank: String
+}
+
 type Query {
   transactions(
     search: String
@@ -36,4 +40,5 @@ type Query {
   ): [Transaction]
   categories: [Category]
   accounts: [Account]
+  banks: [Bank]
 }
