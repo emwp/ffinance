@@ -49,6 +49,8 @@
     "vue-eslint-parser": "9.1.0"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.10",
+    "@heroicons/vue": "^2.0.16",
     "@nuxtjs/apollo": "^5.0.0-alpha.5",
     "graphql": "^16.6.0"
   }

@@ -20,14 +20,14 @@ export type Scalars = {
 
 export type Bank = {
   __typename?: 'Bank';
-  id?: Maybe<Scalars['ID']>;
-  name?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  name: Scalars['String'];
 };
 
 export type Category = {
   __typename?: 'Category';
-  id?: Maybe<Scalars['ID']>;
-  name?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  name: Scalars['String'];
 };
 
 export type Query = {
@@ -40,28 +40,25 @@ export type Query = {
 
 export type QueryTransactionsArgs = {
   account?: InputMaybe<Scalars['String']>;
-  amount?: InputMaybe<Scalars['Float']>;
   bank?: InputMaybe<Scalars['String']>;
   category?: InputMaybe<Scalars['String']>;
-  currency?: InputMaybe<Scalars['String']>;
   from?: InputMaybe<Scalars['Date']>;
-  reference?: InputMaybe<Scalars['String']>;
   search?: InputMaybe<Scalars['String']>;
   to?: InputMaybe<Scalars['Date']>;
 };
 
 export type Transaction = {
   __typename?: 'Transaction';
-  account?: Maybe<Scalars['String']>;
-  amount?: Maybe<Scalars['Float']>;
+  account: Scalars['String'];
+  amount: Scalars['Float'];
   bank?: Maybe<Bank>;
   bankId?: Maybe<Scalars['ID']>;
   categories?: Maybe<Category>;
   categoryId?: Maybe<Scalars['ID']>;
-  currency?: Maybe<Scalars['String']>;
-  date?: Maybe<Scalars['Date']>;
-  id?: Maybe<Scalars['ID']>;
-  reference?: Maybe<Scalars['String']>;
+  currency: Scalars['String'];
+  date: Scalars['Date'];
+  id: Scalars['ID'];
+  reference: Scalars['String'];
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -159,14 +156,14 @@ export type ResolversParentTypes = ResolversObject<{
 }>;
 
 export type BankResolvers<ContextType = any, ParentType extends ResolversParentTypes['Bank'] = ResolversParentTypes['Bank']> = ResolversObject<{
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type CategoryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']> = ResolversObject<{
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -181,16 +178,16 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 }>;
 
 export type TransactionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Transaction'] = ResolversParentTypes['Transaction']> = ResolversObject<{
-  account?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  amount?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  account?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  amount?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   bank?: Resolver<Maybe<ResolversTypes['Bank']>, ParentType, ContextType>;
   bankId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   categories?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType>;
   categoryId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
-  currency?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
-  reference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  currency?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  date?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  reference?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 

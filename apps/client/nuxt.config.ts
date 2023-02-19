@@ -17,7 +17,7 @@ export default defineNuxtConfig({
       globals: true,
       testTimeout: 20000,
       clearMocks: true,
-      setupFiles: './config/testSetup.ts',
+      setupFiles: './testSetup.ts',
     },
   },
 });
