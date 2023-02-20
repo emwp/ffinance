@@ -4,7 +4,7 @@ type Args = {
   amount?: number;
 };
 
-const formatCurrency = ({ currency, language, amount = 0 }: Args) => {
+const formatCurrency = ({ currency = 'USD', language = 'en-US', amount = 0 }: Args) => {
   return new Intl.NumberFormat(language, { style: 'currency', currency: currency }).format(amount);
 };
 

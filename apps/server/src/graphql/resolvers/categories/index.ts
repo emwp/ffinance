@@ -1,7 +1,4 @@
-import prisma from '../../../prisma/client';
+import { getCategories } from './findManyCategories';
+import { updateCategory } from './upsertCategory';
 
-const getCategories = async () => {
-  return await prisma.categories.findMany();
-};
-
-export { getCategories };
+export { getCategories, updateCategory };

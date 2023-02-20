@@ -2,30 +2,38 @@ scalar Date
 
 type Transaction {
   id: ID!
-  reference: String
-  currency: String
-  amount: Float
-  date: Date
-  category: Category
-  categoryId: ID
-  account: Account
-  accountId: ID
+  reference: String!
+  currency: String!
+  amount: Float!
+  date: Date!
+  category: FullCategory!
+  categoryId: ID!
+  account: FullAccount!
+  accountId: ID!
 }
 
-type Account {
+type FullCategory {
   id: ID!
-  name: String
-  bank: String
+  name: String!
+  color: String!
 }
 
 type Category {
-  id: ID!
-  name: String
-  color: String
+  name: String!
 }
 
 type Bank {
-  bank: String
+  bank: String!
+}
+
+type FullAccount {
+  id: ID!
+  name: String!
+  bank: String!
+}
+
+type Account {
+  name: String!
 }
 
 type Query {
@@ -37,8 +45,15 @@ type Query {
     from: Date
     to: Date
     first: Int
+    cursor: String
+    orderBy: String
   ): [Transaction]
+  findTransactionById(txId: ID): Transaction
   categories: [Category]
   accounts: [Account]
   banks: [Bank]
+}
+
+type Mutation {
+  updateCategory(categoryId: ID, name: String!, color: String!): FullCategory
 }

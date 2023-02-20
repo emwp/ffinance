@@ -1,14 +1,12 @@
 <script lang="ts">
-import { graphql } from '../config/graphql/gql';
+import { graphql } from '../../config/graphql/gql';
 
 export function useCategories() {
   const { result } = useQuery(
     graphql(`
       query Categories {
         categories {
-          id
           name
-          color
         }
       }
     `),

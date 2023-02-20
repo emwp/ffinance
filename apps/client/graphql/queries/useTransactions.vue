@@ -1,9 +1,13 @@
 <script lang="ts">
 import { TransactionsQueryVariables } from '~~/config/graphql/graphql';
-import { graphql } from '../config/graphql/gql';
+import { graphql } from '../../config/graphql/gql';
 
 export function useTransactions(args: TransactionsQueryVariables) {
-  const { result } = useQuery(
+  if (typeof args.category !== 'string') {
+    console.log({ args });
+  }
+
+  const { result, loading, refetch } = useQuery(
     graphql(/* GraphQL */ `
       query Transactions(
         $bank: String
@@ -13,6 +17,8 @@ export function useTransactions(args: TransactionsQueryVariables) {
         $category: String
         $from: Date
         $to: Date
+        $orderBy: String
+        $cursor: String
       ) {
         transactions(
           bank: $bank
@@ -22,6 +28,8 @@ export function useTransactions(args: TransactionsQueryVariables) {
           category: $category
           from: $from
           to: $to
+          orderBy: $orderBy
+          cursor: $cursor
         ) {
           id
           reference
@@ -41,12 +49,12 @@ export function useTransactions(args: TransactionsQueryVariables) {
         }
       }
     `),
-    { first: 10 },
-    { fetchPolicy: 'cache-first' },
+    { ...args, first: 15 },
+    { fetchPolicy: 'no-cache' },
   );
 
   const transactions = computed(() => result?.value?.transactions || []);
 
-  return { transactions };
+  return { transactions, loading, refetch };
 }
 </script>
