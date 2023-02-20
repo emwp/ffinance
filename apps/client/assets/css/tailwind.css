@@ -5,7 +5,11 @@
 body,
 html,
 #__nuxt {
-  @apply bg-gray-50 h-full w-full;
+  @apply h-full w-full;
+}
+
+#__nuxt {
+  @apply bg-gray-100;
 }
 
 @layer base {

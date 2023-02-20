@@ -2,17 +2,17 @@
   <div>
     <label class="block mb-1 text-sm font-medium text-gray-500">{{ label }}</label>
     <Listbox
-      :value="selected"
+      :value="current"
       @input="$emit('updateField', ($event.target as HTMLInputElement).value)"
     >
       <div class="relative mt-1">
         <ListboxButton
           class="relative w-full h-10 cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md"
         >
-          <span class="block truncate">{{ selected }}</span>
+          <span class="block truncate">{{ current }}</span>
           <span class="absolute inset-y-0 right-0 flex items-center pr-2">
             <BackspaceIcon
-              v-if="selected"
+              v-if="current"
               class="h-5 w-5 text-gray-400 mr-1 cursor-pointer"
               aria-hidden="true"
               @click="emit('updateField', '')"
@@ -30,18 +30,18 @@
           leave-to-class="opacity-0"
         >
           <ListboxOptions
-            class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white p-1 text-base shadow-lg"
+            class="absolute outline-none mt-1 max-h-60 w-full overflow-auto rounded-md bg-white p-1 text-base shadow-lg"
           >
             <ListboxOption
               v-for="option in options"
-              v-slot="{ active, selected }"
+              v-slot="{ active, current }"
               :key="option"
               :value="option"
               as="template"
               @click="$emit('updateField', option)"
             >
               <li :class="[active ? 'bg-amber-50' : 'text-gray-900', 'p-2 h-9']">
-                <span :class="[selected ? 'font-medium' : 'font-normal']">{{ option }}</span>
+                <span :class="[current ? 'font-medium' : 'font-normal']">{{ option }}</span>
               </li>
             </ListboxOption>
           </ListboxOptions>
@@ -55,11 +55,13 @@
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue';
 import { ChevronUpDownIcon, BackspaceIcon } from '@heroicons/vue/20/solid';
 
-defineProps<{
+const props = defineProps<{
   options?: string[];
   selected: string;
   label: string;
 }>();
+
+const current = computed(() => props.selected);
 
 const emit = defineEmits(['updateField']);
 </script>
