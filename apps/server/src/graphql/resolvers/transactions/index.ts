@@ -46,6 +46,10 @@ const getTransactions = async (args: z.infer<typeof QueryInputSchema>) => {
   }
 
   return await prisma.transactions.findMany({
+    include: {
+      category: { select: { name: true, color: true, id: true } },
+      account: { select: { name: true, bank: true, id: true } },
+    },
     where: {
       OR: searchORconditions,
       AND: [
@@ -59,10 +63,6 @@ const getTransactions = async (args: z.infer<typeof QueryInputSchema>) => {
           },
         },
       ],
-    },
-    include: {
-      category: { select: { name: true, color: true, id: true } },
-      account: { select: { name: true, bank: true, id: true } },
     },
     take: first,
   });

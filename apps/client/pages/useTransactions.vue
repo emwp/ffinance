@@ -41,7 +41,8 @@ export function useTransactions(args: TransactionsQueryVariables) {
         }
       }
     `),
-    { ...args },
+    { first: 10 },
+    { fetchPolicy: 'cache-first' },
   );
 
   const transactions = computed(() => result?.value?.transactions || []);
