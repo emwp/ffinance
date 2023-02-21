@@ -1,10 +1,10 @@
 import prisma from '../../../prisma/client';
 
-const getCategories = async () => {
-  return await prisma.categories.groupBy({
+const findCategories = async () => {
+  return await prisma.category.groupBy({
     by: ['name'],
     orderBy: { name: 'asc' },
   });
 };
 
-export { getCategories };
+export { findCategories };

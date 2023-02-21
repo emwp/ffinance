@@ -1,10 +1,11 @@
 scalar Date
+scalar Decimal
 
 type Transaction {
   id: ID!
   reference: String!
   currency: String!
-  amount: Float!
+  amount: Decimal!
   date: Date!
   category: FullCategory!
   categoryId: ID!

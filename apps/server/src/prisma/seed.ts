@@ -3,17 +3,36 @@ import { parse } from 'csv-parse';
 import { join } from 'path';
 import prisma from './client';
 
-async function main() {
-  const startTime = Date.now();
+const startTime = Date.now();
 
-  console.log('🌱 DB Seeding started, may take some time...');
+console.log('🌱 DB Seeding started, may take some time...');
 
-  const interval = setInterval(() => {
-    const msElapsed = Date.now() - startTime;
-    console.log(`⏳ DB Seeding in progress... Elapsed: ${msElapsed}ms`);
-  }, 10000);
-
+const interval = setInterval(() => {
   const msElapsed = Date.now() - startTime;
+  console.log(`⏳ DB Seeding in progress... Elapsed: ${msElapsed}ms`);
+}, 10000);
+
+async function main() {
+  // Seed accounts
+  await new Promise((resolve, reject) => {
+    createReadStream(join(process.cwd(), './src/prisma/data/accounts.csv'))
+      .pipe(parse({ delimiter: ',', from_line: 2, quote: '' }))
+      .on('data', async function (row: string[]) {
+        const [id = '', name = '', bank = ''] = row?.map((item) =>
+          item?.replace(/"/g, ''),
+        );
+        if (!id || !name) return;
+        return await prisma.account.create({ data: { id, name, bank } });
+      })
+      .on('end', () => {
+        setTimeout(() => {
+          resolve(true);
+        }, 2000);
+      })
+      .on('error', (error) => {
+        reject(error);
+      });
+  });
 
   // Seed categories
   await new Promise((resolve, reject) => {
@@ -24,29 +43,12 @@ async function main() {
           item?.replace(/"/g, ''),
         );
         if (!id || !name) return;
-        return await prisma.categories.create({ data: { id, name, color } });
+        return await prisma.category.create({ data: { id, name, color } });
       })
       .on('end', () => {
-        resolve(true);
-      })
-      .on('error', (error) => {
-        reject(error);
-      });
-  });
-
-  // Seed accounts
-  await new Promise((resolve, reject) => {
-    createReadStream(join(process.cwd(), './src/prisma/data/accounts.csv'))
-      .pipe(parse({ delimiter: ',', from_line: 2, quote: '' }))
-      .on('data', async function (row: string[]) {
-        const [id = '', name = '', bank = ''] = row?.map((item) =>
-          item?.replace(/"/g, ''),
-        );
-        if (!id || !name) return;
-        return await prisma.accounts.create({ data: { id, name, bank } });
-      })
-      .on('end', () => {
-        resolve(true);
+        setTimeout(() => {
+          resolve(true);
+        }, 2000);
       })
       .on('error', (error) => {
         reject(error);
@@ -62,7 +64,7 @@ async function main() {
           const [id, accountId, categoryId, reference, amount, currency, date] =
             row?.map((item) => item?.replace(/"/g, '').trim());
           if (id && accountId && categoryId) {
-            return await prisma.transactions.createMany({
+            return await prisma.transaction.createMany({
               data: {
                 id,
                 accountId,
@@ -83,15 +85,14 @@ async function main() {
         reject(error);
       });
   });
-
-  clearInterval(interval);
-  console.log('🌱 DB Seeding endend!');
-  console.log(` ⏳ Seed completed in ${msElapsed}ms ⌛`);
 }
 
 main()
   .then(async () => {
     await prisma.$disconnect();
+    clearInterval(interval);
+    console.log('🌱 DB Seeding endend!');
+    console.log(`⏳ Seed completed in ${Date.now() - startTime}ms ⌛`);
   })
   .catch(async (e) => {
     console.error(e);

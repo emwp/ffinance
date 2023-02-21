@@ -1,4 +1,4 @@
-import { getCategories } from './findManyCategories';
+import { findCategories } from './findManyCategories';
 import { updateCategory } from './upsertCategory';
 
-export { getCategories, updateCategory };
+export { findCategories, updateCategory };

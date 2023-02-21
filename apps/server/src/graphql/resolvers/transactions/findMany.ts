@@ -3,37 +3,27 @@ import prisma from '../../../prisma/client';
 import isValidDate from '../../../helpers/isValidDate';
 import isValidAmount from '../../../helpers/isValidAmount';
 import { Prisma } from '@prisma/client';
+import { QueryTransactionsArgs } from '../../resolvers-types';
 
 const START_DATE_STRING = '1901-01-01';
 
-const QueryInputSchema = z.object({
-  search: z.string().optional(),
+const TransactionsInputSchema = z.object({
+  search: z.string().default(''),
   category: z.string().optional(),
   account: z.string().optional(),
   bank: z.string().optional(),
   from: z.date().optional(),
   to: z.date().optional(),
-  first: z.number().optional(),
+  first: z.number().default(15),
   cursor: z.string().optional(),
   orderBy: z.string().optional(),
 });
 
-const findMany = async (args: z.infer<typeof QueryInputSchema>) => {
-  const {
-    account,
-    category,
-    to,
-    from,
-    bank,
-    cursor,
-    orderBy,
-    search = '',
-    first = 15,
-  } = QueryInputSchema.parse(args) ?? {};
+const findMany = async (args: QueryTransactionsArgs) => {
+  const { account, category, to, from, bank, cursor, orderBy, search, first } =
+    TransactionsInputSchema.parse(args) ?? {};
 
-  console.log({ search });
-
-  const searchORconditions: { [key: string]: unknown }[] = [
+  const searchORconditions: Prisma.Enumerable<Prisma.TransactionWhereInput> = [
     { reference: { contains: search, mode: 'insensitive' } },
     { account: { name: { contains: search, mode: 'insensitive' } } },
     { account: { bank: { contains: search, mode: 'insensitive' } } },
@@ -52,7 +42,7 @@ const findMany = async (args: z.infer<typeof QueryInputSchema>) => {
     searchORconditions.push({ amount: { equals: amount } });
   }
 
-  return await prisma.transactions.findMany({
+  return await prisma.transaction.findMany({
     where: {
       OR: searchORconditions,
       AND: [

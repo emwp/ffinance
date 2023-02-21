@@ -17,6 +17,7 @@ export type Scalars = {
   Int: number;
   Float: number;
   Date: Date;
+  Decimal: any;
 };
 
 export type Account = {
@@ -91,7 +92,7 @@ export type Transaction = {
   __typename?: 'Transaction';
   account: FullAccount;
   accountId: Scalars['ID'];
-  amount: Scalars['Float'];
+  amount: Scalars['Decimal'];
   category: FullCategory;
   categoryId: Scalars['ID'];
   currency: Scalars['String'];
@@ -175,7 +176,7 @@ export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Category: ResolverTypeWrapper<Category>;
   Date: ResolverTypeWrapper<Scalars['Date']>;
-  Float: ResolverTypeWrapper<Scalars['Float']>;
+  Decimal: ResolverTypeWrapper<Scalars['Decimal']>;
   FullAccount: ResolverTypeWrapper<FullAccount>;
   FullCategory: ResolverTypeWrapper<FullCategory>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
@@ -193,7 +194,7 @@ export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean'];
   Category: Category;
   Date: Scalars['Date'];
-  Float: Scalars['Float'];
+  Decimal: Scalars['Decimal'];
   FullAccount: FullAccount;
   FullCategory: FullCategory;
   ID: Scalars['ID'];
@@ -221,6 +222,10 @@ export type CategoryResolvers<ContextType = any, ParentType extends ResolversPar
 
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
   name: 'Date';
+}
+
+export interface DecimalScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Decimal'], any> {
+  name: 'Decimal';
 }
 
 export type FullAccountResolvers<ContextType = any, ParentType extends ResolversParentTypes['FullAccount'] = ResolversParentTypes['FullAccount']> = ResolversObject<{
@@ -252,7 +257,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 export type TransactionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Transaction'] = ResolversParentTypes['Transaction']> = ResolversObject<{
   account?: Resolver<ResolversTypes['FullAccount'], ParentType, ContextType>;
   accountId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  amount?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  amount?: Resolver<ResolversTypes['Decimal'], ParentType, ContextType>;
   category?: Resolver<ResolversTypes['FullCategory'], ParentType, ContextType>;
   categoryId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   currency?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -267,6 +272,7 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   Bank?: BankResolvers<ContextType>;
   Category?: CategoryResolvers<ContextType>;
   Date?: GraphQLScalarType;
+  Decimal?: GraphQLScalarType;
   FullAccount?: FullAccountResolvers<ContextType>;
   FullCategory?: FullCategoryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;

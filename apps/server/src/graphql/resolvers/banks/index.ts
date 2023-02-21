@@ -1,9 +1,9 @@
 import prisma from '../../../prisma/client';
 
-const getBanks = async () => {
-  return await prisma.accounts.groupBy({
+const findBanks = async () => {
+  return await prisma.account.groupBy({
     by: ['bank'],
   });
 };
 
-export { getBanks };
+export { findBanks };

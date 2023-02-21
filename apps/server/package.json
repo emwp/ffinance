@@ -27,7 +27,6 @@
     "schema": "src/prisma/schema.prisma"
   },
   "devDependencies": {
-    "@faker-js/faker": "^7.6.0",
     "@graphql-codegen/add": "4.0.0",
     "@graphql-codegen/cli": "3.0.0",
     "@graphql-codegen/typescript": "3.0.0",
@@ -53,6 +52,7 @@
     "@graphql-tools/schema": "9.0.16",
     "@prisma/client": "4.10.1",
     "graphql": "16.6.0",
+    "graphql-type-decimal": "^1.0.0",
     "zod": "^3.20.6"
   }
 }
