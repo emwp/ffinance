@@ -2,6 +2,7 @@
   <div class="relative w-full h-9">
     <label class="block mb-1 text-sm font-medium text-gray-500">Search</label>
     <input
+      data-testid="search-input"
       :value="search"
       class="w-full h-10 pl-8 outline-none rounded-lg bg-white py-2 pr-10 text-left shadow-md"
       type="text"

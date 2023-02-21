@@ -1,5 +1,8 @@
 <template>
-  <table class="w-full min-h-[240px] text-sm text-left text-gray-500 shadow-md rounded-xl">
+  <table
+    data-testid="tx-table"
+    class="w-full min-h-[240px] text-sm text-left text-gray-500 shadow-md rounded-xl"
+  >
     <thead class="bg-gray-100">
       <tr>
         <th
@@ -17,6 +20,7 @@
         <th
           scope="col"
           class="px-6 py-3"
+          data-testid="sort-by-date"
           @click="$emit('updateOrder')"
         >
           <div class="flex">
@@ -46,6 +50,7 @@
         v-for="tx in transactions"
         :key="tx?.id"
         class="cursor-pointer bg-gray-50 hover:bg-gray-100"
+        data-testid="tx-row"
         @click="goToTxDetails(tx?.id)"
       >
         <td

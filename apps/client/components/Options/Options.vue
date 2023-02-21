@@ -7,6 +7,7 @@
     >
       <div class="relative mt-1">
         <ListboxButton
+          :data-testid="[`Options-${label}`]"
           class="relative w-full h-10 cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md"
         >
           <span class="block truncate">{{ current }}</span>
@@ -30,7 +31,7 @@
           leave-to-class="opacity-0"
         >
           <ListboxOptions
-            class="absolute outline-none mt-1 max-h-60 w-full overflow-auto rounded-md bg-white p-1 text-base shadow-lg"
+            class="absolute outline-none mt-1 max-h-60 min-w-[240px] w-full overflow-auto rounded-md bg-white p-1 text-base shadow-lg"
           >
             <ListboxOption
               v-for="option in options"

@@ -22,6 +22,7 @@
           <label class="block mb-1 text-sm font-medium text-gray-500">Start Date</label>
           <input
             v-model="from"
+            data-testid="date-from"
             type="date"
             class="overflow-hidden relative w-full h-10 outline-none rounded-lg bg-white p-2 shadow-md"
           >
@@ -30,6 +31,7 @@
           <label class="block mb-1 text-sm font-medium text-gray-500">End Date</label>
           <input
             v-model="to"
+            data-testid="date-to"
             type="date"
             class="overflow-hidden relative w-full h-10 outline-none rounded-lg bg-white p-2 shadow-md"
           >

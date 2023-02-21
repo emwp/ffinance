@@ -11,14 +11,3 @@ html,
 #__nuxt {
   @apply bg-gray-100;
 }
-
-@layer base {
-  input::-webkit-calendar-picker-indicator {
-    display: block;
-    top: 0;
-    left: 0;
-    background: #0000;
-    position: absolute;
-    transform: scale(12);
-  }
-}
