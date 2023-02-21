@@ -10,6 +10,8 @@ export function useCategories() {
         }
       }
     `),
+    {},
+    { fetchPolicy: 'cache-and-network' },
   );
 
   const categories = computed(() => result?.value?.categories?.map((category) => category?.name) ?? []);

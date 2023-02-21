@@ -39,9 +39,9 @@
       </div>
       <div
         v-if="loading"
-        class="w-full sm:h-[50vh] m-auto grid sm:place-items-center"
+        class="w-full sm:h-[70vh] m-auto grid sm:place-items-center"
       >
-        <TransactionSkeleton />
+        <TransactionSkeleton :size="15" />
       </div>
       <TransactionsTable
         v-else
@@ -88,12 +88,12 @@ const orderBy = ref('desc');
 const from = ref<string>(new Date('1901-01-01').toISOString());
 const to = ref(new Date().toISOString());
 
-const { transactions, loading, refetch } = useTransactions({
-  search: search as unknown as string,
-  account: account as unknown as string,
-  category: category as unknown as string,
-  orderBy: orderBy as unknown as string,
-  cursor: cursor as unknown as string | undefined,
+const { transactions, loading } = useTransactions({
+  search,
+  account,
+  category,
+  orderBy,
+  cursor,
   from,
   to,
 });
@@ -125,19 +125,6 @@ const updateOrderBy = () => {
 
 watch(from, () => (cursor.value = undefined));
 watch(to, () => (cursor.value = undefined));
-
-// watch(orderBy, (order) => {
-//   refetch({
-//     search: search as unknown as string,
-//     account: account as unknown as string,
-//     category: category as unknown as string,
-//     orderBy: order,
-//     cursor: cursor as unknown as string | undefined,
-//     from,
-//     to,
-//     first: 15,
-//   });
-// });
 
 const isOrderDesc = computed(() => orderBy.value === 'desc');
 

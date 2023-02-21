@@ -10,6 +10,8 @@ export function useAccounts() {
         }
       }
     `),
+    {},
+    { fetchPolicy: 'cache-and-network' },
   );
 
   const accounts = computed(() => result?.value?.accounts?.map((bank) => bank?.name) ?? []);

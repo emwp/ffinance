@@ -1,5 +1,5 @@
 <script lang="ts">
-import { graphql } from '../../config/graphql/gql';
+import { graphql } from '~/config/graphql/gql';
 
 type Args = { txId?: string };
 

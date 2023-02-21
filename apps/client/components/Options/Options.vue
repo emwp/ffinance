@@ -34,15 +34,15 @@
             class="absolute outline-none mt-1 max-h-60 min-w-[240px] w-full overflow-auto rounded-md bg-white p-1 text-base shadow-lg"
           >
             <ListboxOption
-              v-for="option in options"
-              v-slot="{ active, current }"
+              v-for="option in validatedOptions"
+              v-slot="{ active, hover }"
               :key="option"
               :value="option"
               as="template"
               @click="$emit('updateField', option)"
             >
               <li :class="[active ? 'bg-amber-50' : 'text-gray-900', 'p-2 h-9']">
-                <span :class="[current ? 'font-medium' : 'font-normal']">{{ option }}</span>
+                <span :class="[hover ? 'font-medium' : 'font-normal']">{{ option }}</span>
               </li>
             </ListboxOption>
           </ListboxOptions>
@@ -55,12 +55,20 @@
 <script setup lang="ts">
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue';
 import { ChevronUpDownIcon, BackspaceIcon } from '@heroicons/vue/20/solid';
+import { z } from 'zod';
 
 const props = defineProps<{
-  options?: string[];
+  options?: unknown[];
   selected: string;
   label: string;
 }>();
+
+const validatedOptions = computed(() => {
+  if (props.options) {
+    return z.array(z.string()).parse(props.options);
+  }
+  return [];
+});
 
 const current = computed(() => props.selected);
 
