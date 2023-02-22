@@ -2,17 +2,18 @@
   "name": "@ffinance/server",
   "version": "1.0.0",
   "private": true,
-  "main": "index.js",
+  "main": "src/index.js",
   "license": "MIT",
   "scripts": {
     "build": "tsc",
     "dev": "nodemon --watch \"src/**/*.ts\" --ignore \"node_modules/**/*\" --exec ts-node src/index.ts",
     "lint": "eslint src/**/*.ts",
+    "start": "node dist/src/index.js",
     "generate": "graphql-codegen",
     "format": "eslint src/**/*.ts --fix",
-    "prisma:generate": "prisma generate --schema ./src/prisma/schema.prisma",
-    "prisma:migrate": "prisma migrate dev --schema ./src/prisma/schema.prisma",
-    "prisma:seed": "ts-node ./src/prisma/seed.ts",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev --name init",
+    "prisma:seed": "ts-node ./prisma/seed.ts",
     "test": "vitest"
   },
   "prettier": {
@@ -22,9 +23,6 @@
     "printWidth": 80,
     "tabWidth": 2,
     "bracketSpacing": true
-  },
-  "prisma": {
-    "schema": "src/prisma/schema.prisma"
   },
   "devDependencies": {
     "@graphql-codegen/add": "4.0.0",

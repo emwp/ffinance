@@ -14,7 +14,7 @@ const TxVariablesSchema = z.object({
   cursor: z.string().optional(),
 });
 
-export function useTransactions(args: unknown) {
+export default function useTransactions(args: unknown) {
   /* Had problems with codegen generated graphql types and vue3 composition api.
      Tried to use zod to validate the args, but it didn't work either.
      If I pass the ref.value the query doesn't refetch on variables changes.

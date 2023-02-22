@@ -85,8 +85,8 @@
 </template>
 
 <script setup lang="ts">
-import { useTransaction } from '~/graphql/queries/useTransaction.vue';
-import { useUpdateCategory } from '~/graphql/mutations/useUpdateCategory.vue';
+import useTransaction from '~/graphql/queries/useTransaction.vue';
+import useUpdateCategory from '~/graphql/mutations/useUpdateCategory.vue';
 import formatCurrency from '~/helpers/formatCurrency';
 
 const { params } = useRoute();

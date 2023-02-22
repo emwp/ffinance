@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import prisma from '../../../prisma/client';
+import prisma from '../../../../prisma/client';
 import isValidDate from '../../../helpers/isValidDate';
 import isValidAmount from '../../../helpers/isValidAmount';
 import { Prisma } from '@prisma/client';

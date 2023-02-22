@@ -3,7 +3,7 @@ import { graphql } from '~/config/graphql/gql';
 
 type Args = { txId?: string };
 
-export function useTransaction({ txId }: Args) {
+export default function useTransaction({ txId }: Args) {
   const { result, loading } = useQuery(
     graphql(/* GraphQL */ `
       query FindTransactionById($txId: ID) {

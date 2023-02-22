@@ -21,8 +21,11 @@ COPY --from=builder /app/out/yarn.lock ./yarn.lock
 RUN yarn install
 
 # Build the project and its dependencies
+
 COPY --from=builder /app/out/full/ .
 COPY turbo.json turbo.json
+
+RUN yarn turbo run prisma:generate --filter=@ffinance/server...
 
 RUN yarn turbo run build --filter=@ffinance/server...
 
@@ -31,4 +34,8 @@ WORKDIR /app
 
 COPY --from=installer /app .
 
-CMD node apps/server/dist/index.js
+ENV PORT=5000
+
+EXPOSE 5000
+
+CMD node apps/server/dist/src/index.js

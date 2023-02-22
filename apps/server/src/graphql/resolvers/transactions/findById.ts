@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import prisma from '../../../prisma/client';
+import prisma from '../../../../prisma/client';
 import { QueryFindTransactionByIdArgs } from '../../resolvers-types';
 
 const TransactionInputSchema = z.object({

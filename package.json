@@ -8,9 +8,11 @@
   ],
   "scripts": {
     "build": "turbo run build",
+    "prisma:generate": "turbo run prisma generate",
     "dev": "turbo run dev --parallel",
     "docker:build": "COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose -f docker-compose.yml build",
     "docker:start": "docker-compose -f docker-compose.yml up -d",
+    "docker:stop": "docker-compose down",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
     "test": "turbo run test"

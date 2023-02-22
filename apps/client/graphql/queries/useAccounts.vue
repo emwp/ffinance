@@ -1,7 +1,7 @@
 <script lang="ts">
 import { graphql } from '../../config/graphql/gql';
 
-export function useAccounts() {
+export default function useAccounts() {
   const { result } = useQuery(
     graphql(`
       query Accounts {

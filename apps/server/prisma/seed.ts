@@ -15,7 +15,7 @@ const interval = setInterval(() => {
 async function main() {
   // Seed accounts
   await new Promise((resolve, reject) => {
-    createReadStream(join(process.cwd(), './src/prisma/data/accounts.csv'))
+    createReadStream(join(process.cwd(), './prisma/data/accounts.csv'))
       .pipe(parse({ delimiter: ',', from_line: 2, quote: '' }))
       .on('data', async function (row: string[]) {
         const [id = '', name = '', bank = ''] = row?.map((item) =>
@@ -36,7 +36,7 @@ async function main() {
 
   // Seed categories
   await new Promise((resolve, reject) => {
-    createReadStream(join(process.cwd(), './src/prisma/data/categories.csv'))
+    createReadStream(join(process.cwd(), './prisma/data/categories.csv'))
       .pipe(parse({ delimiter: ',', from_line: 2, relaxQuotes: true }))
       .on('data', async function (row: string[]) {
         const [id = '', name = '', color = ''] = row?.map((item) =>
@@ -57,7 +57,7 @@ async function main() {
 
   // Seed transactions
   await new Promise((resolve, reject) => {
-    createReadStream(join(process.cwd(), './src/prisma/data/transactions.csv'))
+    createReadStream(join(process.cwd(), './prisma/data/transactions.csv'))
       .pipe(parse({ delimiter: ',', from_line: 2, relaxQuotes: true }))
       .on('data', async function (row: string[]) {
         if (row?.length === 7) {

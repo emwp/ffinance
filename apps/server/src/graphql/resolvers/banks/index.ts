@@ -1,4 +1,4 @@
-import prisma from '../../../prisma/client';
+import prisma from '../../../../prisma/client';
 
 const findBanks = async () => {
   return await prisma.account.groupBy({

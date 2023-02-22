@@ -1,7 +1,7 @@
 <script lang="ts">
 import { graphql } from '../../config/graphql/gql';
 
-export function useCategories() {
+export default function useCategories() {
   const { result } = useQuery(
     graphql(`
       query Categories {

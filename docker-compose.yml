@@ -24,18 +24,15 @@ services:
       - app_network
 
   postgres:
-    image: postgres:13
+    image: postgres:14
     environment:
       - POSTGRES_DB=ffinance
-      - POSTGRES_USER=test
-      - POSTGRES_PASSWORD=test
-    volumes:
-      - db_data:/var/lib/postgresql/data
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     ports:
       - "5432:5432"
-  
-volumes:
-  db_data:
+    networks:
+      - app_network
 
 networks:
   app_network:

@@ -1,7 +1,7 @@
 <script lang="ts">
 import { graphql } from '../../config/graphql/gql';
 
-export function useUpdateCategory() {
+export default function useUpdateCategory() {
   const { mutate: upsertCategory, loading } = useMutation(
     graphql(`
       mutation UpdateCategory($categoryId: ID, $name: String!, $color: String!) {

@@ -1,4 +1,4 @@
-import prisma from '../../../prisma/client';
+import prisma from '../../../../prisma/client';
 
 const findCategories = async () => {
   return await prisma.category.groupBy({

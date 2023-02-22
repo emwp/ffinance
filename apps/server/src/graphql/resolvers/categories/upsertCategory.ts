@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import prisma from '../../../prisma/client';
+import prisma from '../../../../prisma/client';
 import { MutationUpdateCategoryArgs } from '../../resolvers-types';
 
 const QueryInputSchema = z.object({
