@@ -25,6 +25,7 @@ RUN yarn install
 COPY --from=builder /app/out/full/ .
 COPY turbo.json turbo.json
 
+
 RUN yarn turbo run prisma:generate --filter=@ffinance/server...
 
 RUN yarn turbo run build --filter=@ffinance/server...
@@ -35,7 +36,7 @@ WORKDIR /app
 COPY --from=installer /app .
 
 ENV PORT=5000
-
+ENV NODE_ENV=production
 ENV DATABASE_URL=postgresql://postgres:postgres@postgres:5432/ffinance?pool_timeout=0
 
 EXPOSE 5000
