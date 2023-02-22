@@ -1,7 +1,7 @@
 <script lang="ts">
 import { z } from 'zod';
 import { graphql } from '~/config/graphql/gql';
-import { TransactionsQueryVariables } from '~~/config/graphql/graphql';
+import { TransactionsQueryVariables } from '~/config/graphql/graphql';
 
 const TxVariablesSchema = z.object({
   account: z.string().default(''),

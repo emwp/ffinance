@@ -76,9 +76,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import useTransactions from '~/graphql/queries/useTransactions.vue';
-import useAccounts from '~~/graphql/queries/useAccounts.vue';
+import useAccounts from '~/graphql/queries/useAccounts.vue';
 import useCategories from '~/graphql/queries/useCategories.vue';
-import TransactionSkeleton from '~~/components/Skeletons/TransactionSkeleton.vue';
+import TransactionSkeleton from '~/components/TransactionsTable/TransactionSkeleton.vue';
 
 const category = ref('');
 const account = ref('');

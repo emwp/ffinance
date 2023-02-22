@@ -18,6 +18,7 @@
         <span class="text-sm py-2"> Category: </span>
         <input
           v-model="categoryNameRef"
+          data-testid="input-category-name"
           class="outline-none h-9 p-2 w-auto max-w-[284px] rounded-lg bg-white shadow-md"
           type="text"
         >
@@ -30,6 +31,7 @@
         <div class="grid grid-cols-2 gap-3 w-max place-items-center">
           <input
             v-model="categoryColorRef"
+            data-testid="input-category-color"
             class="outline-none h-9 p-2 w-auto max-w-[284px] rounded-lg bg-white shadow-md"
             type="text"
           >
@@ -81,6 +83,16 @@
         Back
       </NuxtLink>
     </div>
+    <div
+      v-if="isToastVisible.isVisible"
+      class="flex justify-center items-center fixed right-2 top-2 p-4 h-max w-max rounded-lg"
+      :class="{
+        'bg-green-300': isToastVisible.type === 'success',
+        'bg-red-300': isToastVisible.type === 'error',
+      }"
+    >
+      <span class="font-medium text-gray-700">{{ isToastVisible.message }}</span>
+    </div>
   </div>
 </template>
 
@@ -88,6 +100,12 @@
 import useTransaction from '~/graphql/queries/useTransaction.vue';
 import useUpdateCategory from '~/graphql/mutations/useUpdateCategory.vue';
 import formatCurrency from '~/helpers/formatCurrency';
+
+type Toast = {
+  isVisible?: boolean;
+  type?: 'success' | 'error';
+  message?: string;
+};
 
 const { params } = useRoute();
 const txId = params.transaction.toString();
@@ -97,6 +115,7 @@ const { upsertCategory } = useUpdateCategory();
 
 const categoryNameRef = ref<string>();
 const categoryColorRef = ref<string>();
+const isToastVisible = ref<Toast>({ isVisible: true, type: 'success', message: 'Loading sadsda...' });
 
 watch(transaction, (newTx) => {
   categoryNameRef.value = newTx?.category.name;
@@ -110,6 +129,19 @@ const updateCategory = async () => {
   if (typeof catColor !== 'string' || typeof catName !== 'string') {
     return;
   }
-  await upsertCategory({ categoryId: catId, color: catColor, name: catName });
+  const { errors } = (await upsertCategory({ categoryId: catId, color: catColor, name: catName })) ?? {};
+
+  isToastVisible.value.isVisible = true;
+
+  if (!errors?.length) {
+    isToastVisible.value.type = 'success';
+    isToastVisible.value.message = 'Category updated!';
+  } else {
+    isToastVisible.value.type = 'error';
+    isToastVisible.value.message = 'Something went wrong!';
+  }
+  return setTimeout(() => {
+    isToastVisible.value.isVisible = false;
+  }, 3000);
 };
 </script>

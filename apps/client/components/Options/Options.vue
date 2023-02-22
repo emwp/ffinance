@@ -31,7 +31,7 @@
           leave-to-class="opacity-0"
         >
           <ListboxOptions
-            class="absolute outline-none mt-1 max-h-60 min-w-[240px] w-full overflow-auto rounded-md bg-white p-1 text-base shadow-lg"
+            class="absolute z-10 outline-none mt-1 max-h-60 min-w-[240px] w-full overflow-auto rounded-md bg-white p-1 text-base shadow-lg"
           >
             <ListboxOption
               v-for="option in validatedOptions"
