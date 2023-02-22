@@ -36,6 +36,8 @@ COPY --from=installer /app .
 
 ENV PORT=5000
 
+ENV DATABASE_URL=postgresql://postgres:postgres@postgres:5432/ffinance?pool_timeout=0
+
 EXPOSE 5000
 
 CMD node apps/server/dist/src/index.js

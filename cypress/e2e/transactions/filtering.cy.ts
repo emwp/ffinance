@@ -4,16 +4,12 @@ import { slowCypressDown } from "cypress-slow-down";
 
 slowCypressDown(50);
 
-describe("Transactions List", () => {
+describe("Transactions List Filtering", () => {
   beforeEach(() => {
     cy.visit("http://localhost:3000");
   });
 
-  it("should full page (15) results", () => {
-    cy.findAllByTestId("tx-row").should("have.length", 15);
-  });
-
-  it("filter by account", () => {
+  it("should filter by account", () => {
     cy.log("Selecting Account");
     cy.findByTestId("Options-Account").click();
     cy.findByText("Mr. Tahir Hagee").click();
@@ -36,7 +32,7 @@ describe("Transactions List", () => {
     cy.findByText(/^2021-07-06/i);
   });
 
-  it("filter by category", () => {
+  it("should filter by category", () => {
     cy.log("Selecting Category");
     cy.findByTestId("Options-Category").click();
     cy.findByText("Check Outflows").click();
@@ -47,7 +43,7 @@ describe("Transactions List", () => {
     });
   });
 
-  it("filter by date", () => {
+  it("should filter by date", () => {
     cy.log("Selecting Date Filters");
     cy.findByTestId("date-from").type("2022-01-01");
     cy.findByTestId("date-to").type("2022-12-30");
@@ -69,43 +65,8 @@ describe("Transactions List", () => {
     });
   });
 
-  it("sort by date", () => {
-    cy.log("Selecting filters");
-    cy.findByTestId("Options-Category").click();
-    cy.findByText("Financing Income").click();
-    cy.findByTestId("Options-Account").click();
-    cy.findByText("Mr. Kevin (Bills)").click();
-    cy.findByTestId("search-input").type("aca", { force: true });
-
-    cy.log("Asserting results per year before sorting");
-    cy.findAllByText(/^2022/i).should("have.length", 4);
-    cy.findAllByText(/^2021/i).should("have.length", 10);
-    cy.findAllByText(/^2020/i).should("have.length", 1);
-
-    cy.log("Asserting results per year after sorting");
-    cy.findByTestId("sort-by-date").click();
-    cy.findAllByText(/^2022/i).should("have.length", 1);
-    cy.findAllByText(/^2021/i).should("have.length", 10);
-    cy.findAllByText(/^2020/i).should("have.length", 4);
-  });
-
-  it("should move to next page", () => {
-    cy.log("Selecting filters");
-    cy.findByTestId("Options-Category").click();
-    cy.findByText("Financing Income").click();
-    cy.findByTestId("Options-Account").click();
-    cy.findByText("Mr. Kevin (Bills)").click();
-    cy.findByTestId("search-input").type("aca", { force: true });
-
-    cy.log("Asseting number of page results");
-    cy.findAllByTestId("tx-row").should("have.length", 15);
-    cy.findByText(/^next page/i).click();
-
-    cy.log("Asseting number of page results after next page");
-    cy.findAllByTestId("tx-row").should("have.length", 3);
-  });
-
-  it("filter search", () => {
+  it("should filter search by the string 'Strum'", () => {
+    cy.log("Adding category and account filters to decrease amount of results");
     cy.log("Selecting Category");
     cy.findByTestId("Options-Category").click();
     cy.findByText("Check Outflows").click();
@@ -114,10 +75,11 @@ describe("Transactions List", () => {
     cy.findByTestId("Options-Account").click();
     cy.findByText("Mr. Kevin (Bills)").click();
 
-    cy.log("Asseting that there are 15 results");
+    cy.log("Asserting that there are 15 results");
     cy.findAllByTestId("tx-row").should("have.length", 15);
+    cy.findAllByText(/^strum/i).should("not.have.length", 2);
 
-    cy.log("Asseting that after typing Strum, there are only two results");
+    cy.log("Asserting that after typing Strum, there are only two results");
     cy.findByTestId("search-input").type("Strum", { force: true });
     cy.findAllByTestId("tx-row").should("have.length", 2);
     cy.findByText(/Strum Canstick/i);

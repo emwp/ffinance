@@ -6,5 +6,5 @@
     "isolatedModules": false,
     "types": ["cypress", "node"]
   },
-  "include": ["**/*.ts", "**.spec.ts"]
+  "include": ["**/*.ts", "**.spec.ts", "**.cy.ts"]
 }
