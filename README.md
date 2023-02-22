@@ -2,13 +2,13 @@
 
 This is my solution to the Friday Finance [Full-Stack Developer Challenge](https://github.com/fridayfinance/challenges/tree/main/dev-fullstack)
 
-### Running the project
+## Running the project
 
 #### Requisites:
 
-- Cloning the repository.
-- Have docker running.
-- Node version 14 or higher.
+- Cloning the repository
+- Have docker running
+- Node version 14 or higher
 - yarn
 
 ```bash
@@ -33,7 +33,7 @@ The transactions csv is quite large (over 339k records), it may take some time t
 
 That's it! You can access the Nuxt Frontend at http://localhost:3000
 
-### Stack Used:
+## Stack Used:
 
 #### Frontend:
 
@@ -49,6 +49,7 @@ Regarding the choice of @nuxtjs/apollo, it integrates well with the graphQL Code
 
 #### Backend/DB:
 
+- Node.js
 - Apollo-Server
 - GraphQL
 - Prisma
@@ -72,6 +73,12 @@ From GraphQL side, used graphQL codegen again to generate types from the GraphQL
     - Sorting by date.
     - Cursor based pagination.
     - Updating a category and making sure that all other transactions with this categoryId FK are also updated with the new color.
+
+You can run Cypress locally with the following command:
+
+```bash
+  npx cypress open
+```
 
 I've prepared a GIF showing tests running:
 
