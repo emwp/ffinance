@@ -10,7 +10,7 @@ services:
     ports:
       - 3000:3000
     networks:
-      - app_network
+      - ffinance_network
 
   server:
     container_name: ffinance_server
@@ -21,7 +21,7 @@ services:
     ports:
       - 5000:5000
     networks:
-      - app_network
+      - ffinance_network
 
   postgres:
     image: postgres:14
@@ -32,8 +32,8 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - app_network
+      - ffinance_network
 
 networks:
-  app_network:
+  ffinance_network:
     external: true

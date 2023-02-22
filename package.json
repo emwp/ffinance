@@ -12,7 +12,10 @@
     "dev": "turbo run dev --parallel",
     "docker:build": "COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose -f docker-compose.yml build",
     "docker:start": "docker-compose -f docker-compose.yml up -d",
+    "docker:network": "docker network create ffinance_network",
     "docker:stop": "docker-compose down",
+    "docker:build:run": "yarn && yarn docker:network && yarn docker:build && yarn docker:start",
+    "prepare:db": "yarn workspace @ffinance/server prisma:migrate && yarn workspace @ffinance/server prisma:seed",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
     "test": "turbo run test"
@@ -21,7 +24,7 @@
     "turbo": "latest"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=14.0.0"
   },
   "dependencies": {},
   "packageManager": "yarn@1.22.17"
