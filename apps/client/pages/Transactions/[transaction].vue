@@ -115,7 +115,7 @@ const { upsertCategory } = useUpdateCategory();
 
 const categoryNameRef = ref<string>();
 const categoryColorRef = ref<string>();
-const isToastVisible = ref<Toast>({ isVisible: true, type: 'success', message: 'Loading sadsda...' });
+const isToastVisible = ref<Toast>({ isVisible: false, type: 'success' });
 
 watch(transaction, (newTx) => {
   categoryNameRef.value = newTx?.category.name;
