@@ -45,7 +45,7 @@ The choices were trying to follow the tech stack that Friday Finance uses.
 
 Regarding Vue/Nuxt, I have been working mainly with React and had pretty limited experience with Vue prior to this challenge, so I might have written Vue in some kinda of React.js patterns.
 
-Regarding the choice of @nuxtjs/apollo, it integrates well with the graphQL Codegen library, which I really like to use to have type-safe GraphQL queries, mutations and data.
+Regarding the choice of @nuxtjs/apollo, it integrates well with the GraphQL Codegen library, which I really like to use to have type-safe GraphQL queries, mutations and data. With the GraphQL codegen watch command running, whenever a query/mutation is written it will pick up the types for it by introspecting the Apollo-Server schema.
 
 #### Backend/DB:
 
