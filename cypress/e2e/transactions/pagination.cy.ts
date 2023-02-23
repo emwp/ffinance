@@ -33,10 +33,10 @@ describe("Transactions List Pagination", () => {
 
   it("should be able to go back to first page", () => {
     cy.log("Selecting filters");
-    cy.findByTestId("Options-Category").click();
-    cy.findByText("Advertising").click();
     cy.findByTestId("Options-Account").click();
     cy.findByText("Mr. Kevin (Bills)").click();
+    cy.findByTestId("Options-Category").click();
+    cy.findByText("Advertising").click();
 
     cy.log("Asserting first result of the page");
     cy.findAllByTestId("tx-row")

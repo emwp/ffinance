@@ -2,7 +2,7 @@
 /// <reference types="@testing-library/cypress" />
 import { slowCypressDown } from "cypress-slow-down";
 
-slowCypressDown(50);
+slowCypressDown(200);
 
 const getRandomHexColor = () =>
   ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, "0");
@@ -14,6 +14,8 @@ describe("Transactions List", () => {
 
   it("should be able to update category color", () => {
     cy.log("Selecting Category to assert color");
+    cy.findByTestId("Options-Account").click();
+    cy.findByText("Mr. Kevin (Bills)").click();
     cy.findByTestId("Options-Category").click();
     cy.findByText("Personnel").click();
 
@@ -31,6 +33,8 @@ describe("Transactions List", () => {
 
     cy.log("Selecting a different transaction from the same category");
     cy.log("Selecting Category");
+    cy.findByTestId("Options-Account").click();
+    cy.findByText("Mr. Kevin (Bills)").click();
     cy.findByTestId("Options-Category").click();
     cy.findByText("Personnel").click();
     cy.findByText(/^Condolence Mensurable Erne/i).click();
